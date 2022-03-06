@@ -5,21 +5,26 @@ import './index.css';
 
 class Square extends React.Component {
     //storing state
-constructor(props){
-    super(props);
-    this.state = {
-        value:null,
-    }
+    //useless bc no longer storing state.
+// constructor(props){
+//     super(props);
+//     this.state = {
+//         value:null,
+//     }
 
-}
+// }
+    
 
     render() {
       return (
         <button 
         className="square"
-        onClick={() => this.setState({value: 'X'})}
-        >
-       {this.state.value}
+        onClick={() => this.props.onClick()}    
+            >
+       {
+          // this.state.value
+          this.props.value
+           }
         </button>
       );
 
@@ -32,30 +37,28 @@ constructor(props){
     constructor(props){
         super(props);
         this.state = {
-            value:null,
+            currplayer: 'X',
+            squares: Array(9).fill(null)
         }
     
     }
-    
-    
-    
+
+
+    handleClick(){
+
+    }
     
     renderSquare(i) {
-      return <Square value={i}/>;
+      return <Square value={this.state.squares[i]}
+                    OnClick={this.handleClick(i)}
+            />;
     }
-  constructor(props){
-    super(props);
-    this.state = {
-        curr_player: 'X',
-        isGameDone: false,
-        board: []// maybe only think of it conceptually as 9, or [][] may be easier
-
-    }
-
-}
-    render() {
-      const status = 'Next player: X';
   
+    render() {
+
+        const curr_player = this.state.curr_player;
+      const status = ('Next player: '+ this.state.currplayer);
+           // this.setState({currplayer: 'O'})
       return (
         <div>
           <div className="status">{status}</div>
@@ -76,6 +79,7 @@ constructor(props){
           </div>
         </div>
       );
+    //   this.setState({this.state.currplayer: (currplayer=='X' ? 'O' : 'X')})
     }
   }
   
