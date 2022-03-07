@@ -3,62 +3,46 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 
-class Square extends React.Component {
-    //storing state
-    //useless bc no longer storing state.
-// constructor(props){
-//     super(props);
-//     this.state = {
-//         value:null,
-//     }
+function Square(props){
+    return(
+        <button className="square" onClick={props.onClick}>
+      {props.value}
+    </button>
+    );
+}
 
-// }
-    
-
-    render() {
-      return (
-        <button 
-        className="square"
-        onClick={() => this.props.onClick()}    
-            >
-       {
-          // this.state.value
-          this.props.value
-           }
-        </button>
-      );
-
-    }
-  }
-  
   class Board extends React.Component {
     
     // 'life state up'
     constructor(props){
         super(props);
         this.state = {
-            currplayer: 'X',
-            squares: Array(9).fill(null)
+            squares: Array(9).fill(null),
+            isXnext: true,
         }
     
     }
 
-
-    handleClick(){
-
+    handleClick(i){
+       const squares = this.state.squares.slice(); 
+        squares[i] = this.state.isXnext ? 'X' : 'O';
+        this.setState({squares: squares,
+                    isXnext: !this.state.isXnext});
     }
     
     renderSquare(i) {
       return <Square value={this.state.squares[i]}
-                    OnClick={this.handleClick(i)}
+                    onClick={() => this.handleClick(i)}
             />;
     }
   
     render() {
 
-        const curr_player = this.state.curr_player;
-      const status = ('Next player: '+ this.state.currplayer);
-           // this.setState({currplayer: 'O'})
+       // const curr_player = this.state.curr_player;
+      //const status = ('Next player: ' )
+      const status = ('Next player: ' + (this.state.isXnext ? 'X' : 'O'));
+
+      // this.setState({currplayer: 'O'})
       return (
         <div>
           <div className="status">{status}</div>
