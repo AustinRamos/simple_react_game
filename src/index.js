@@ -102,6 +102,14 @@ jumpTo(step){
       const current = history[this.state.stepNumber];
       const winner = calculateWinner(current.squares);
 
+      console.log("rowcol");
+
+
+      console.log("stepNumber" + this.state.stepNumber + " board: " +this.state.history[this.state.stepNumber].squares);
+
+      const col = 0;
+      const row = 0;
+
       //display list of butons to jump to past moves
       const moves = history.map((step,move) => {
         const desc = move ? 
@@ -109,7 +117,7 @@ jumpTo(step){
         'Go go game start';
 return(
 <li key = {move}>
-    <button onClick={()=> this.jumpTo(move)}>{desc} </button>
+    <button onClick={()=> this.jumpTo(move)}>{desc} (col: {col} Row:{row} </button>
 </li>
 );
     });
@@ -151,7 +159,7 @@ ReactDOM.render(
 );
 
 function calculateWinner(squares) {
-  console.log("calcwintest");
+
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
